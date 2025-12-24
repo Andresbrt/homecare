@@ -1,0 +1,47 @@
+{
+  "expo": {
+    "name": "Homecare",
+    "slug": "homecare",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "light",
+    "newArchEnabled": true,
+    "description": "Servicios de limpieza doméstica profesional. Unión, orden y compromiso en cada detalle.",
+    "splash": {
+      "image": "./assets/splash-icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#49C0BC"
+    },
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.homecare.mobile",
+      "buildNumber": "1.0.0"
+    },
+    "android": {
+      "package": "com.homecare.mobile",
+      "versionCode": 1,
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#49C0BC"
+      },
+      "permissions": [
+        "ACCESS_COARSE_LOCATION",
+        "ACCESS_FINE_LOCATION",
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE"
+      ],
+      "edgeToEdgeEnabled": true
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7296d259-d29c-4b89-a72a-e14d6e70fd20"
+      }
+    },
+    "owner": "berduras2341"
+  }
+}

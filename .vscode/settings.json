@@ -1,0 +1,28 @@
+{
+    "java.compile.nullAnalysis.mode": "automatic",
+    "java.configuration.updateBuildConfiguration": "interactive",
+    "sqltools.connections": [
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "CleanHome Dev",
+            "database": "cleanhome_dev",
+            "username": "root",
+            "password": "root",
+            "connectionTimeout": 30
+        },
+        {
+            "previewLimit": 50,
+            "server": "localhost",
+            "port": 3306,
+            "driver": "MySQL",
+            "name": "CleanHome Production",
+            "database": "cleanhome_db",
+            "username": "cleanhome_user",
+            "password": "cleanhome_password",
+            "connectionTimeout": 30
+        }
+    ]
+}
