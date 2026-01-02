@@ -1,0 +1,93 @@
+version: '3.8'
+
+services:
+  # ============================================
+  # Base de Datos PostgreSQL
+  # ============================================
+  database:
+    image: postgres:15-alpine
+    container_name: viclean-db
+    environment:
+      POSTGRES_DB: viclean
+      POSTGRES_USER: viclean_user
+      POSTGRES_PASSWORD: viclean_pass
+      PGDATA: /var/lib/postgresql/data/pgdata
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U viclean_user -d viclean"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - viclean-network
+
+  # ============================================
+  # Backend - Spring Boot API
+  # ============================================
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: viclean-backend
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      SPRING_DATASOURCE_URL: jdbc:postgresql://database:5432/viclean
+      SPRING_DATASOURCE_USERNAME: viclean_user
+      SPRING_DATASOURCE_PASSWORD: viclean_pass
+      SPRING_JPA_HIBERNATE_DDL_AUTO: update
+      JWT_SECRET: ${JWT_SECRET:-your-secret-key-change-in-production}
+      SERVER_PORT: 8080
+    ports:
+      - "8080:8080"
+    depends_on:
+      database:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - viclean-network
+    volumes:
+      - ./target:/app/target
+
+  # ============================================
+  # Frontend Web (Opcional - si usas servidor Node)
+  # ============================================
+  # frontend:
+  #   build:
+  #     context: ./frontend
+  #     dockerfile: Dockerfile
+  #   container_name: viclean-frontend
+  #   ports:
+  #     - "3000:3000"
+  #   environment:
+  #     REACT_APP_API_URL: http://localhost:8080/api
+  #   depends_on:
+  #     - backend
+  #   networks:
+  #     - viclean-network
+
+  # ============================================
+  # Redis (Opcional - para caché/sesiones)
+  # ============================================
+  # redis:
+  #   image: redis:7-alpine
+  #   container_name: viclean-redis
+  #   ports:
+  #     - "6379:6379"
+  #   networks:
+  #     - viclean-network
+
+networks:
+  viclean-network:
+    driver: bridge
+
+volumes:
+  postgres_data:
+    driver: local

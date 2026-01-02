@@ -1,0 +1,134 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"label": "🚀 Iniciar Todo (Dev Stack Completo)",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\start-dev.ps1"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			},
+			"problemMatcher": [],
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		},
+		{
+			"label": "🔥 Backend - Spring Boot",
+			"type": "shell",
+			"command": "mvn",
+			"args": [
+				"spring-boot:run",
+				"-Dspring-boot.run.profiles=dev"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"group": "backend"
+			},
+			"problemMatcher": [],
+			"isBackground": true
+		},
+		{
+			"label": "📱 Mobile - Expo Start",
+			"type": "shell",
+			"command": "npx",
+			"args": [
+				"expo",
+				"start"
+			],
+			"options": {
+				"cwd": "${workspaceFolder}/mobile"
+			},
+			"presentation": {
+				"reveal": "always",
+				"panel": "dedicated",
+				"group": "mobile"
+			},
+			"problemMatcher": [],
+			"isBackground": true
+		},
+		{
+			"label": "🐳 Docker - Iniciar Todo",
+			"type": "shell",
+			"command": "docker-compose",
+			"args": [
+				"up",
+				"-d"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "🛑 Docker - Detener Todo",
+			"type": "shell",
+			"command": "docker-compose",
+			"args": [
+				"down"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "🧪 Test - Endpoints Backend",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\mobile\\test_endpoints.ps1"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "🧹 Limpiar Puertos",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-ExecutionPolicy",
+				"Bypass",
+				"-File",
+				"${workspaceFolder}\\scripts\\kill-ports.ps1"
+			],
+			"presentation": {
+				"reveal": "always",
+				"panel": "new"
+			},
+			"problemMatcher": []
+		},
+		{
+			"label": "Replace brand in Play Store guide",
+			"type": "shell",
+			"command": "powershell",
+			"args": [
+				"-NoProfile",
+				"-Command",
+				"$path = 'c:\\Users\\ANDRES\\OneDrive\\Desktop\\andres rico\\mobile\\PLAY_STORE_DEPLOYMENT.md'; (Get-Content $path) -replace '# 📱 Guía Completa para Publicar CleanHome en Play Store','# 📱 Guía Completa para Publicar viclean en Play Store' -replace 'Nombre: \"CleanHome\"','Nombre: \"viclean\"' -replace 'Package: \"com.cleanhome.app\"','Package: \"com.andresrico.vicleanmobile\"' -replace 'CleanHome - Limpieza a Domicilio','viclean - Limpieza a Domicilio' -replace '🧽 CleanHome - Tu Solución Inteligente de Limpieza a Domicilio','🧽 viclean - Tu Solución Inteligente de Limpieza a Domicilio' -replace '¿Necesitas ayuda con la limpieza de tu hogar\\? CleanHome','¿Necesitas ayuda con la limpieza de tu hogar\\? viclean' -replace '📱 DESCARGA CLEANHOME HOY','📱 DESCARGA VICLEAN HOY' -replace 'Nombre: CleanHome','Nombre: viclean' -replace 'Para CleanHome','Para viclean' -replace 'Lanzamiento inicial de CleanHome','Lanzamiento inicial de viclean' -replace '¡Gracias por descargar CleanHome!','¡Gracias por descargar viclean!' -replace 'com.cleanhome.app','com.andresrico.vicleanmobile' | Set-Content $path"
+			],
+			"problemMatcher": [],
+			"group": "build"
+		}
+	]
+}

@@ -1,0 +1,873 @@
+/* ═══════════════════════════════════════════════════════════
+   🎨 HOMECARE - MANUAL DE MARCA OFICIAL CSS3 MODERNO
+   Tipografía: Arial Narrow
+   Colores: Turquesa Fresco, Azul Petróleo, Azul Marino Profundo
+   ═══════════════════════════════════════════════════════════ */
+
+/* Variables CSS personalizadas (CSS3) para Homecare */
+:root {
+    /* Colores oficiales del Manual de Marca */
+    --homecare-turquesa: #49C0BC;
+    --homecare-azul-petroleo: #0E4D68;
+    --homecare-azul-marino: #001B38;
+    --homecare-blanco: #FFFFFF;
+    
+    /* Variaciones de colores con HSL (CSS3) */
+    --homecare-turquesa-light: hsl(178, 44%, 65%);
+    --homecare-turquesa-dark: hsl(178, 44%, 40%);
+    --homecare-azul-petroleo-light: hsl(202, 64%, 30%);
+    
+    /* Tipografía oficial - Arial Narrow con fallbacks modernos */
+    --font-primary: 'Arial Narrow', 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+    --font-logo: 'Arial Narrow', 'Arial', system-ui, sans-serif;
+    
+    /* Sistema de sombras moderno con colores de marca */
+    --shadow-sm: 0 1px 2px color-mix(in srgb, var(--homecare-azul-marino) 5%, transparent);
+    --shadow-md: 0 4px 6px color-mix(in srgb, var(--homecare-azul-marino) 8%, transparent);
+    --shadow-lg: 0 10px 15px color-mix(in srgb, var(--homecare-azul-marino) 12%, transparent);
+    --shadow-xl: 0 20px 25px color-mix(in srgb, var(--homecare-azul-marino) 15%, transparent);
+    
+    /* Bordes con logical properties (CSS3) */
+    --border-radius-sm: 6px;
+    --border-radius-md: 10px;
+    --border-radius-lg: clamp(12px, 4vw, 16px);
+    --border-radius-xl: clamp(20px, 6vw, 24px);
+    
+    /* Sistema de espaciado fluido (CSS3) */
+    --spacing-xs: clamp(2px, 1vw, 4px);
+    --spacing-sm: clamp(6px, 2vw, 8px);
+    --spacing-md: clamp(12px, 4vw, 16px);
+    --spacing-lg: clamp(20px, 6vw, 24px);
+    --spacing-xl: clamp(28px, 8vw, 32px);
+    --spacing-2xl: clamp(40px, 12vw, 48px);
+    
+    /* Transiciones suaves CSS3 */
+    --transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-normal: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+    --transition-slow: 350ms cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Gradientes de marca (CSS3) */
+    --gradient-primary: linear-gradient(135deg, var(--homecare-turquesa), var(--homecare-turquesa-dark));
+    --gradient-secondary: linear-gradient(135deg, var(--homecare-azul-petroleo), var(--homecare-azul-marino));
+    --gradient-accent: radial-gradient(circle at center, var(--homecare-turquesa-light), var(--homecare-turquesa));
+}
+
+/* Reset moderno CSS3 */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: var(--font-primary);
+    line-height: 1.6;
+    color: var(--homecare-azul-marino);
+    background-color: var(--homecare-blanco);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* Header - Diseño Homecare */
+.header {
+    background: linear-gradient(135deg, var(--homecare-azul-petroleo) 0%, var(--homecare-azul-marino) 100%);
+    color: var(--homecare-blanco);
+    padding: 1.2rem 0;
+    box-shadow: var(--shadow-md);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    backdrop-filter: blur(10px);
+}
+
+.nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--spacing-lg);
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    font-size: 1.75rem;
+    font-weight: 700;
+    font-family: var(--font-logo);
+    letter-spacing: 0.5px;
+    transition: transform 0.3s ease;
+}
+
+.logo:hover {
+    transform: scale(1.05);
+}
+
+.logo i {
+    margin-right: 12px;
+    font-size: 2rem;
+    color: var(--homecare-turquesa);
+    filter: drop-shadow(0 2px 4px rgba(73, 192, 188, 0.3));
+}
+
+.nav-links {
+    display: flex;
+    gap: var(--spacing-lg);
+    align-items: center;
+}
+
+.nav-links a {
+    color: var(--homecare-blanco);
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: var(--border-radius-md);
+    font-weight: 500;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.nav-links a::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--homecare-turquesa);
+    transition: width 0.3s ease;
+}
+
+.nav-links a:hover {
+    background-color: rgba(73, 192, 188, 0.15);
+    transform: translateY(-2px);
+}
+
+.nav-links a:hover::before {
+    width: 100%;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.role-badge {
+    background-color: var(--homecare-turquesa);
+    color: var(--homecare-blanco);
+    padding: 5px 14px;
+    border-radius: 16px;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 0.8px;
+    box-shadow: var(--shadow-sm);
+    transition: all 0.3s ease;
+}
+
+.role-badge:hover {
+    transform: scale(1.05);
+    box-shadow: var(--shadow-md);
+}
+
+.role-badge.SERVICE_PROVIDER {
+    background-color: var(--homecare-azul-petroleo);
+}
+
+.role-badge.ADMIN {
+    background: linear-gradient(135deg, #FFB800 0%, #FFA000 100%);
+    color: var(--homecare-azul-marino);
+}
+
+/* Main Content */
+.main {
+    min-height: calc(100vh - 140px);
+}
+
+.page {
+    display: none;
+    padding: 2rem 0;
+}
+
+.page.active {
+    display: block;
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hero Section - Degradado Homecare */
+.hero {
+    background: linear-gradient(135deg, var(--homecare-turquesa) 0%, var(--homecare-azul-petroleo) 50%, var(--homecare-azul-marino) 100%);
+    color: var(--homecare-blanco);
+    padding: 6rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+    background-size: 200% 200%;
+    animation: shine 4s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 var(--spacing-lg);
+}
+
+.hero-content h1 {
+    font-size: 3.5rem;
+    font-weight: 800;
+    margin-bottom: 1.5rem;
+    text-shadow: 0 4px 12px rgba(0, 27, 56, 0.2);
+    letter-spacing: -0.5px;
+    line-height: 1.1;
+}
+
+.hero-content p {
+    font-size: 1.3rem;
+    margin-bottom: 2.5rem;
+    opacity: 0.95;
+    font-weight: 400;
+    line-height: 1.6;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: var(--spacing-xl);
+}
+
+/* Hero Section - Degradado Homecare */
+.hero {
+    background: linear-gradient(135deg, var(--homecare-turquesa) 0%, var(--homecare-azul-petroleo) 50%, var(--homecare-azul-marino) 100%);
+    color: var(--homecare-blanco);
+    padding: 6rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(45deg, transparent 40%, rgba(255,255,255,0.06) 50%, transparent 60%);
+    background-size: 200% 200%;
+    animation: shine 4s ease-in-out infinite;
+}
+
+@keyframes shine {
+    0%, 100% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+}
+
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+/* Buttons - Estilo Homecare del Manual */
+.btn {
+    padding: 16px 32px;
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    font-size: 1.05rem;
+    font-family: var(--font-primary);
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;\n    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.6s, height 0.6s;
+}
+
+.btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn-primary {
+    background: linear-gradient(135deg, var(--homecare-turquesa) 0%, var(--homecare-turquesa-dark) 100%);
+    color: var(--homecare-blanco);
+    box-shadow: var(--shadow-md);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-lg);
+}
+
+.btn-secondary {
+    background-color: var(--homecare-blanco);
+    color: var(--homecare-azul-petroleo);
+    border: 2px solid var(--homecare-turquesa);
+    box-shadow: var(--shadow-sm);
+}
+
+.btn-secondary:hover {
+    background: var(--homecare-turquesa);
+    color: var(--homecare-blanco);
+    transform: translateY(-3px);
+}
+
+/* Cards - Diseño Homecare */
+.card {
+    background: var(--homecare-blanco);
+    border-radius: var(--border-radius-lg);
+    padding: var(--spacing-lg);
+    box-shadow: var(--shadow-md);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    border: 1px solid rgba(73, 192, 188, 0.1);
+}
+
+.card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-xl);
+    border-color: var(--homecare-turquesa);
+}
+
+/* Forms - Estilo Homecare */
+.form-group {
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: var(--spacing-sm);
+    color: var(--homecare-azul-marino);
+    font-weight: 600;
+    font-size: 0.95rem;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 14px 16px;
+    border: 2px solid #E5E7EB;
+    border-radius: var(--border-radius-md);
+    font-size: 1rem;
+    font-family: var(--font-primary);
+    color: var(--homecare-azul-marino);
+    transition: all 0.3s ease;
+    background-color: var(--homecare-blanco);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--homecare-turquesa);
+    box-shadow: 0 0 0 3px rgba(73, 192, 188, 0.1);
+    transform: translateY(-1px);
+}
+
+.form-group input::placeholder {
+    color: #9CA3AF;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-content h1 {
+        font-size: 2.5rem;
+    }
+    
+    .nav-links {
+        flex-direction: column;
+        gap: var(--spacing-sm);
+    }
+    
+    .btn {
+        width: 100%;
+    }
+}
+
+/* Buttons */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.btn-primary {
+    background-color: #007bff;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #0056b3;
+    transform: translateY(-2px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: white;
+    border: 2px solid white;
+}
+
+.btn-secondary:hover {
+    background-color: white;
+    color: #667eea;
+}
+
+.btn-full {
+    width: 100%;
+}
+
+.btn-danger {
+    background-color: #dc3545;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c82333;
+}
+
+/* Features Section */
+.features {
+    padding: 4rem 0;
+}
+
+.features h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: #333;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.feature-card {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-5px);
+}
+
+.feature-card i {
+    font-size: 3rem;
+    color: #667eea;
+    margin-bottom: 1rem;
+}
+
+.feature-card h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+/* Auth Forms */
+.auth-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 500px;
+}
+
+.auth-form {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    width: 100%;
+    max-width: 500px;
+}
+
+.auth-form h2 {
+    text-align: center;
+    margin-bottom: 2rem;
+    color: #333;
+}
+
+.auth-form h2 i {
+    margin-right: 10px;
+    color: #667eea;
+}
+
+.form-group {
+    margin-bottom: 1rem;
+}
+
+.form-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #e1e5e9;
+    border-radius: 5px;
+    font-size: 1rem;
+    transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: #667eea;
+}
+
+.auth-links {
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.auth-links a {
+    color: #667eea;
+    text-decoration: none;
+    display: block;
+    margin: 0.5rem 0;
+}
+
+.auth-links a:hover {
+    text-decoration: underline;
+}
+
+/* Services Grid */
+.services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.service-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s;
+}
+
+.service-card:hover {
+    transform: translateY(-3px);
+}
+
+.service-card h3 {
+    color: #333;
+    margin-bottom: 0.5rem;
+}
+
+.service-card .service-type {
+    color: #667eea;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.service-card .service-description {
+    color: #666;
+    margin-bottom: 1rem;
+    line-height: 1.5;
+}
+
+.service-card .service-details {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+.service-card .price {
+    color: #28a745;
+    font-size: 1.2rem;
+}
+
+.service-card .duration {
+    color: #666;
+    font-size: 0.9rem;
+}
+
+/* Add Service Section */
+.add-service-section {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-top: 2rem;
+}
+
+.add-service-section h3 {
+    margin-bottom: 1.5rem;
+    color: #333;
+}
+
+.add-service-section h3 i {
+    margin-right: 10px;
+    color: #667eea;
+}
+
+/* Profile Section */
+.profile-info {
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 2rem;
+}
+
+.profile-info h3 {
+    margin-bottom: 1rem;
+    color: #333;
+}
+
+.profile-details {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.profile-detail {
+    padding: 1rem;
+    background: #f8f9fa;
+    border-radius: 5px;
+}
+
+.profile-detail strong {
+    color: #555;
+}
+
+/* Footer */
+.footer {
+    background-color: #333;
+    color: white;
+    text-align: center;
+    padding: 1rem 0;
+    margin-top: auto;
+}
+
+/* Notifications */
+.notifications {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+.notification {
+    background: white;
+    padding: 1rem 1.5rem;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+    border-left: 4px solid;
+    animation: slideIn 0.3s ease;
+    min-width: 300px;
+}
+
+.notification.success {
+    border-left-color: #28a745;
+}
+
+.notification.error {
+    border-left-color: #dc3545;
+}
+
+.notification.info {
+    border-left-color: #17a2b8;
+}
+
+.notification .close-btn {
+    float: right;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    cursor: pointer;
+    color: #666;
+}
+
+@keyframes slideIn {
+    from {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* Loading Spinner */
+.loading-spinner {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 2000;
+}
+
+.spinner {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #f3f3f3;
+    border-top: 5px solid #667eea;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+    
+    .hero-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .features-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+    
+    .notification {
+        min-width: auto;
+        margin: 0 10px;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    body {
+        background-color: #121212;
+        color: #e0e0e0;
+    }
+    
+    .feature-card,
+    .auth-form,
+    .service-card,
+    .add-service-section,
+    .profile-info {
+        background: #1e1e1e;
+        color: #e0e0e0;
+    }
+    
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+        background: #2a2a2a;
+        border-color: #404040;
+        color: #e0e0e0;
+    }
+}
