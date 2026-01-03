@@ -14,14 +14,12 @@ import java.util.List;
 @Table(name = "users")
 public class User extends BaseEntity {
     
-    @NotBlank(message = "El nombre es obligatorio")
     @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
-    @Column(name = "first_name", nullable = false)
+    @Column(name = "first_name")
     private String firstName;
     
-    @NotBlank(message = "El apellido es obligatorio")
     @Size(min = 2, max = 50, message = "El apellido debe tener entre 2 y 50 caracteres")
-    @Column(name = "last_name", nullable = false)
+    @Column(name = "last_name")
     private String lastName;
     
     @Email(message = "Formato de email inválido")

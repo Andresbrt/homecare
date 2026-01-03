@@ -8,12 +8,11 @@ import jakarta.validation.constraints.Size;
 
 public class UserRegistrationDto {
     
-    @NotBlank(message = "El nombre es obligatorio")
-    @Size(min = 2, max = 50, message = "El nombre debe tener entre 2 y 50 caracteres")
-    private String firstName;
+    @Size(min = 2, max = 100, message = "El nombre debe tener entre 2 y 100 caracteres")
+    private String fullName;
     
-    @NotBlank(message = "El apellido es obligatorio")
-    @Size(min = 2, max = 50, message = "El apellido debe tener entre 2 y 50 caracteres")
+    // Soporte para firstName/lastName por compatibilidad
+    private String firstName;
     private String lastName;
     
     @Email(message = "Formato de email inválido")
@@ -21,7 +20,7 @@ public class UserRegistrationDto {
     private String email;
     
     @NotBlank(message = "La contraseña es obligatoria")
-    @Size(min = 8, message = "La contraseña debe tener al menos 8 caracteres")
+    @Size(min = 6, message = "La contraseña debe tener al menos 6 caracteres")
     private String password;
     
     @Pattern(regexp = "^\\+?[1-9]\\d{1,14}$", message = "Formato de teléfono inválido")
@@ -38,6 +37,14 @@ public class UserRegistrationDto {
     public UserRegistrationDto() {}
     
     // Getters and Setters
+    public String getFullName() {
+        return fullName;
+    }
+    
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+    
     public String getFirstName() {
         return firstName;
     }

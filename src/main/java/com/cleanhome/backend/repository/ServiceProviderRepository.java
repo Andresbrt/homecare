@@ -31,7 +31,7 @@ public interface ServiceProviderRepository extends JpaRepository<ServiceProvider
     )
     List<ServiceProvider> searchByKeyword(@Param("keyword") String keyword);
     
-    Page<ServiceProvider> findByIsActiveTrue(Pageable pageable);
+       Page<ServiceProvider> findByIsAvailableTrue(Pageable pageable);
     
     @Query("SELECT sp FROM ServiceProvider sp WHERE " +
            "(LOWER(sp.businessName) LIKE LOWER(CONCAT('%', :query, '%')) OR " +

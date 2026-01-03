@@ -24,13 +24,17 @@
 		{
 			"label": "🔥 Backend - Spring Boot",
 			"type": "shell",
-			"command": "mvn",
+			"command": "powershell",
 			"args": [
-				"spring-boot:run",
-				"-Dspring-boot.run.profiles=dev"
+				"-NoProfile",
+				"-Command",
+				"mvn spring-boot:run"
 			],
 			"options": {
-				"cwd": "${workspaceFolder}"
+				"cwd": "${workspaceFolder}",
+				"env": {
+					"MAVEN_OPTS": "-Dspring-boot.run.profiles=dev"
+				}
 			},
 			"presentation": {
 				"reveal": "always",

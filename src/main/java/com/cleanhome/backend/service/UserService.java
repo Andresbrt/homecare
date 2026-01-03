@@ -36,8 +36,17 @@ public class UserService {
         
         // Create new user
         User user = new User();
-        user.setFirstName(registrationDto.getFirstName());
-        user.setLastName(registrationDto.getLastName());
+        
+        // Manejar fullName o firstName/lastName
+        if (registrationDto.getFullName() != null && !registrationDto.getFullName().isBlank()) {
+            String[] names = registrationDto.getFullName().trim().split("\\s+", 2);
+            user.setFirstName(names[0]);
+            user.setLastName(names.length > 1 ? names[1] : "");
+        } else {
+            user.setFirstName(registrationDto.getFirstName() != null ? registrationDto.getFirstName() : "");
+            user.setLastName(registrationDto.getLastName() != null ? registrationDto.getLastName() : "");
+        }
+        
         user.setEmail(registrationDto.getEmail());
         user.setPassword(passwordEncoder.encode(registrationDto.getPassword()));
         user.setPhoneNumber(registrationDto.getPhoneNumber());

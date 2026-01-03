@@ -76,7 +76,7 @@ public class SearchService {
         if (serviceId != null) {
             providers = serviceProviderRepository.findByServiceId(serviceId, pageable);
         } else {
-            providers = serviceProviderRepository.findByIsActiveTrue(pageable);
+            providers = serviceProviderRepository.findByIsAvailableTrue(pageable);
         }
         
         return providers.map(this::mapToSearchDTO);
