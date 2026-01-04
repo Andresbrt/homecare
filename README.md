@@ -112,6 +112,28 @@ Para limpiar y reiniciar todos los procesos (útil si hay conflictos de puertos)
 ```
 Para opciones avanzadas y control individual de cada componente (ej. iniciar solo el backend o la app móvil), consulta la [**Guía de Inicio Unificada**](./UNIFIED_START_GUIDE.md).
 
+## 🖥️ Interfaz de Usuario
+
+Homecare ofrece una experiencia de usuario moderna y responsiva, diseñada para ser intuitiva tanto en dispositivos móviles como en navegadores web. Se adhiere a principios de diseño limpio y una paleta de colores profesional para una interacción agradable.
+
+### Características Clave del Diseño
+-   **Diseño Responsivo y Adaptativo**: Funciona perfectamente y se ajusta a pantallas de cualquier tamaño, desde smartphones hasta monitores de escritorio.
+-   **Navegación Intuitiva**: La estructura de la aplicación facilita el acceso rápido a las funcionalidades principales, minimizando la curva de aprendizaje para nuevos usuarios.
+-   **Componentes Modernos**: La aplicación móvil utiliza componentes personalizados como `ModernButton`, `GlassCard`, `FloatingActionButton`, `AnimatedCard`, `ModernNotification` para una estética pulida y una interacción dinámica.
+-   **Autenticación Completa**: Formularios de login y registro robustos con validación.
+-   **Gestión de Datos por Rol**: Interfaces específicas para Clientes (reserva, seguimiento), Proveedores (gestión de servicios, reservas) y Administradores (supervisión completa).
+-   **Notificaciones en Tiempo Real**: Sistema de alertas y confirmaciones para eventos importantes.
+-   **Modo Oscuro**: Soporte automático según las preferencias del sistema operativo o navegador.
+
+### Acceso a las Interfaces
+Una vez que el entorno de desarrollo está iniciado con `.\start-dev.ps1`:
+
+-   **Frontend Web**: Accede desde tu navegador en [http://localhost:3000](http://localhost:3000).
+-   **Aplicación Móvil (Expo)**:
+    1.  Abre la aplicación [Expo Go](https://expo.dev/client) en tu dispositivo móvil (Android/iOS).
+    2.  Escanea el código QR que se muestra en la terminal de Expo (o en el navegador que se abre automáticamente).
+    3.  También puedes acceder directamente desde un navegador en [http://localhost:8083](http://localhost:8083) para la versión web de Expo.
+
 ## 📚 Documentación de API
 
 Una vez que la aplicación esté ejecutándose, puedes acceder a la documentación interactiva de Swagger en:
