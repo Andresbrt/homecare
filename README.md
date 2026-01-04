@@ -60,10 +60,14 @@ Estos colores se aplican tanto en la aplicación móvil como en la web para mant
 
 ## 📋 Prerrequisitos
 
-- **Java 17+**
-- **Maven 3.6+**
-- **Node.js 18+** (para la app móvil)
-- **Docker** (Opcional, para la base de datos)
+Para poder desarrollar y ejecutar Homecare, necesitarás instalar las siguientes herramientas:
+
+-   [**Java Development Kit (JDK) 17+**](https://www.oracle.com/java/technologies/downloads/): Se recomienda una distribución LTS como OpenJDK 17 o superior.
+-   [**Apache Maven 3.6+**](https://maven.apache.org/download.cgi): Herramienta de gestión de proyectos para el backend de Spring Boot.
+-   [**Node.js 18+**](https://nodejs.org/en/download/): Plataforma de tiempo de ejecución JavaScript (se recomienda la versión LTS) para la aplicación móvil.
+-   [**Docker**](https://www.docker.com/products/docker-desktop/) (Opcional): Para ejecutar la base de datos (PostgreSQL) y otros servicios en contenedores durante el desarrollo.
+
+Asegúrate de que estas herramientas estén correctamente instaladas y configuradas en tu sistema antes de continuar.
 
 ## 🚀 Instalación y Configuración
 
