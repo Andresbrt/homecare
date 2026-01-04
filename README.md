@@ -95,12 +95,22 @@ La aplicación está diseñada para ser flexible. Tienes varias opciones:
 Para más detalles sobre todas las opciones, consulta la [**Guía de Configuración de Base de Datos**](./DATABASE_SETUP.md).
 
 ### 4. Iniciar el Entorno de Desarrollo
-El siguiente comando inicia el backend y la aplicación móvil en modo de desarrollo con recarga en caliente.
+El script `start-dev.ps1` es el método más rápido para poner en marcha el proyecto completo. Se encarga de:
+- Verificar que las dependencias de desarrollo (Java, Maven, Node.js, npm) estén instaladas.
+- **Instalar las dependencias de Node.js** (`npm install`) para la aplicación móvil.
+- Iniciar el **Backend** de Spring Boot (en `http://localhost:8080/api`).
+- Iniciar la **Aplicación Móvil** con Expo (en `http://localhost:8083`).
+- Servir el **Frontend Web** estático (en `http://localhost:3000`).
+
 ```powershell
-# Inicia todo el stack (Backend + App Móvil)
+# Inicia todo el stack (Backend + App Móvil + Frontend Web)
 .\start-dev.ps1
 ```
-Para otras opciones de inicio (como iniciar solo el backend o usar Docker), consulta la [**Guía de Inicio Unificada**](./UNIFIED_START_GUIDE.md).
+Para limpiar y reiniciar todos los procesos (útil si hay conflictos de puertos):
+```powershell
+.\start-dev.ps1 -Clean
+```
+Para opciones avanzadas y control individual de cada componente (ej. iniciar solo el backend o la app móvil), consulta la [**Guía de Inicio Unificada**](./UNIFIED_START_GUIDE.md).
 
 ## 📚 Documentación de API
 
