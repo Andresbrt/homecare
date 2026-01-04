@@ -1,101 +1,64 @@
 # ==========================================
-# CleanHome MySQL Setup - Manual Instructions
+# Guía de Configuración de la Base de Datos de Homecare
 # ==========================================
 
-## Instalación de MySQL (Windows)
+Esta guía cubre las opciones para configurar la base de datos para la aplicación Homecare.
 
-1. **Descargar MySQL**:
-   https://dev.mysql.com/downloads/installer/
+## Opción 1: AWS RDS (Recomendado para Producción y Desarrollo en la Nube)
 
-2. **Instalar con configuración por defecto**:
-   - Puerto: 3306
-   - Usuario root con contraseña: `root`
+Para un entorno seguro, escalable y fácil de supervisar, recomendamos utilizar Amazon RDS con PostgreSQL. La aplicación está preconfigurada para conectarse a una instancia de PostgreSQL utilizando variables de entorno.
 
-3. **Verificar instalación**:
-   ```powershell
-   mysql --version
-   ```
+Hemos preparado una guía detallada para configurar una base de datos en el nivel gratuito de AWS.
 
-## Crear Base de Datos desde VS Code con SQLTools
+➡️ **Consulta la guía completa aquí: [Guía de Configuración de AWS RDS](./AWS_RDS_SETUP.md)**
 
-### 1. Instalar extensión SQLTools
-- Abrir VS Code
-- Ir a Extensions (Ctrl+Shift+X)
-- Buscar e instalar: **SQLTools**
-- Buscar e instalar: **SQLTools MySQL/MariaDB**
+Una vez configurado, solo necesitas establecer las variables de entorno como se indica en la guía y el backend se conectará automáticamente.
 
-### 2. Configurar Conexión
-- Presionar `Ctrl+Shift+P`
-- Escribir: `SQLTools: Add New Connection`
-- Seleccionar: **MySQL**
-- Configurar:
-  ```
-  Name: CleanHome Dev
-  Server: localhost
-  Port: 3306
-  Database: cleanhome_dev
-  Username: root
-  Password: root
+## Opción 2: MySQL Local (Alternativa para Desarrollo Local)
+
+Si prefieres un entorno de desarrollo completamente local, puedes usar MySQL.
+
+### 1. Instalación de MySQL
+- **Descargar e instalar MySQL Community Server:** [dev.mysql.com/downloads/installer/](https://dev.mysql.com/downloads/installer/)
+- Durante la instalación, puedes usar la configuración predeterminada. Asegúrate de recordar la contraseña que establezcas para el usuario `root`.
+
+### 2. Crear la Base de Datos
+- Conéctate a tu servidor MySQL usando la herramienta de tu preferencia (MySQL Workbench, DBeaver, o la línea de comandos).
+- Crea la base de datos para el proyecto:
+  ```sql
+  CREATE DATABASE homecare_dev;
   ```
 
-### 3. Ejecutar Scripts SQL desde VS Code
+### 3. Configuración de la Aplicación
+El backend está configurado para buscar un perfil de Spring. Para usar una base de datos MySQL local, puedes usar el perfil `docker` que está configurado para MySQL.
 
-**Opción A - Dejar que Flyway lo haga automáticamente**:
-```powershell
-cd "c:\Users\ANDRES\OneDrive\Desktop\andres rico"
+Abre el archivo `src/main/resources/application-docker.properties` y asegúrate de que las credenciales coincidan con tu configuración local:
+```properties
+# src/main/resources/application-docker.properties
+spring.datasource.url=jdbc:mysql://localhost:3306/homecare_dev?createDatabaseIfNotExist=true
+spring.datasource.username=root
+spring.datasource.password=tu_contraseña_de_root
+```
+
+### 4. Ejecutar la Aplicación
+Para activar este perfil, puedes pasar un argumento al ejecutar la aplicación:
+```bash
+# Limpia, instala y ejecuta la aplicación con el perfil 'docker'
 mvn clean install
-mvn spring-boot:run
+mvn spring-boot:run -Dspring-boot.run.profiles=docker
 ```
-Flyway ejecutará automáticamente las migraciones en `src/main/resources/db/migration/`
+Flyway, la herramienta de migración de base de datos integrada, creará y poblará automáticamente el esquema de la base de datos al iniciar la aplicación por primera vez.
 
-**Opción B - Ejecutar manualmente con SQLTools**:
-1. Conectar a MySQL con SQLTools (icono en barra lateral)
-2. Abrir archivo: `V1__initial_schema.sql`
-3. Seleccionar todo el contenido (Ctrl+A)
-4. Presionar `Ctrl+E Ctrl+E` para ejecutar
-5. Repetir con `V2__indexes_optimizations.sql` y `V3__production_seed_data.sql`
+## Credenciales de Prueba (Después de la Migración Inicial)
 
-## Credenciales de Prueba (después de ejecutar V3)
+La base de datos se poblará con datos de prueba si Flyway se ejecuta correctamente.
 
-### Admin
-- Email: admin@cleanhome.com
-- Password: Admin@2025!
-
-### Cliente de Prueba
-- Email: juan.perez@example.com  
-- Password: Customer@2025!
-
-### Proveedor de Prueba
-- Email: maria.gonzalez@example.com
-- Password: Provider@2025!
-
-## Verificar Tablas Creadas
-
-```sql
-USE cleanhome_dev;
-SHOW TABLES;
-SELECT * FROM users;
-SELECT * FROM services;
-```
-
-## Estructura Final
-
-```
-cleanhome_dev/
-├── users (3 registros)
-├── service_providers (1 registro)
-├── services (4 servicios)
-├── provider_services (4 tipos)
-├── bookings (vacía)
-├── payments (vacía)
-└── ratings (vacía)
-```
-
-## Conexión desde Spring Boot
-
-El backend ya está configurado para conectarse automáticamente:
-- Dev: `jdbc:mysql://localhost:3306/cleanhome_dev`
-- User: `root`
-- Password: `root`
-
-Las migraciones Flyway se ejecutan automáticamente al arrancar la aplicación.
+- **Admin:**
+  - Email: `admin@cleanhome.com`
+  - Password: `Admin@2025!`
+- **Cliente:**
+  - Email: `juan.perez@example.com`  
+  - Password: `Customer@2025!`
+- **Proveedor:**
+  - Email: `maria.gonzalez@example.com`
+  - Password: `Provider@2025!`
