@@ -38,11 +38,25 @@ Estos colores se aplican tanto en la aplicación móvil como en la web para mant
 
 ## 🛠️ Tecnologías Utilizadas
 
-- **Backend**: Spring Boot 3, Java 17, Spring Security, JPA/Hibernate, Maven
-- **Base de Datos**: PostgreSQL (Recomendado), H2, MySQL
-- **App Móvil**: React Native, Expo
-- **Frontend Web**: HTML5, CSS3, JavaScript (ES6+)
-- **API Docs**: Swagger/OpenAPI 3
+- **Backend**:
+    - [**Spring Boot 3**](https://spring.io/projects/spring-boot): Framework para la creación de aplicaciones Java robustas y configurables.
+    - [**Java 17**](https://openjdk.java.net/projects/jdk/17/): Lenguaje de programación utilizado para el desarrollo del backend.
+    - [**Spring Security**](https://spring.io/projects/spring-security): Marco de seguridad para autenticación y autorización.
+    - [**JPA/Hibernate**](https://hibernate.org/orm/): Para la persistencia de datos y el mapeo objeto-relacional.
+    - [**Maven**](https://maven.apache.org/): Herramienta de gestión de proyectos y construcción.
+- **Bases de Datos**:
+    - [**PostgreSQL**](https://www.postgresql.org/): Base de datos relacional robusta (recomendada).
+    - [**H2**](https://www.h2database.com/html/main.html): Base de datos en memoria para desarrollo y pruebas.
+    - [**MySQL**](https://www.mysql.com/): Base de datos relacional alternativa.
+- **App Móvil**:
+    - [**React Native**](https://reactnative.dev/): Framework para construir aplicaciones móviles nativas multiplataforma.
+    - [**Expo**](https://expo.dev/): Herramientas y servicios para desarrollar, construir, desplegar y repetir rápidamente sobre React Native.
+- **Frontend Web**:
+    - [**HTML5**](https://developer.mozilla.org/es/docs/Web/HTML/HTML5): Estructura semántica moderna para la web.
+    - [**CSS3**](https://developer.mozilla.org/es/docs/Web/CSS): Estilos responsivos con Flexbox/Grid.
+    - [**JavaScript (ES6+)**](https://developer.mozilla.org/es/docs/Web/JavaScript): Lógica de aplicación moderna.
+- **API Docs**:
+    - [**Swagger/OpenAPI 3**](https://swagger.io/specification/): Para la documentación interactiva de la API.
 
 ## 📋 Prerrequisitos
 
