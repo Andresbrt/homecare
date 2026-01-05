@@ -136,10 +136,14 @@ Una vez que el entorno de desarrollo está iniciado con `.\start-dev.ps1`:
 
 ## 📚 Documentación de API
 
-Una vez que la aplicación esté ejecutándose, puedes acceder a la documentación interactiva de Swagger en:
+Homecare ofrece una API RESTful bien documentada utilizando Swagger/OpenAPI, lo que facilita la integración y el desarrollo de nuevos módulos.
 
-- **Swagger UI**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
-- **API Docs**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+Una vez que el backend esté ejecutándose, puedes acceder a la documentación interactiva de Swagger UI, que te permite explorar los endpoints, modelos de datos y probar las peticiones directamente desde tu navegador:
+
+-   **Swagger UI Interactivo**: [http://localhost:8080/swagger-ui.html](http://localhost:8080/swagger-ui.html)
+-   **Especificación OpenAPI (YAML/JSON)**: [http://localhost:8080/api-docs](http://localhost:8080/api-docs)
+
+**Nota**: Para interactuar con los endpoints protegidos, asegúrate de autenticarte primero (ver sección "Autenticación") y proporcionar el token JWT en las cabeceras de tus solicitudes.
 
 ## 🤝 Contribuir
 
