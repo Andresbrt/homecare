@@ -1,1 +1,21 @@
 node_modules
+# === Copilot: unify backend ignores ===
+/target/
+!.mvn/wrapper/maven-wrapper.jar
+.idea/
+.vscode/
+*.iml
+.classpath
+.project
+.settings/
+node_modules/
+mobile/.expo/
+.expo/
+.expo-shared/
+/build/
+/dist/
+/coverage/
+.env
+.env.*
+maven-status/
+maven-archiver/
