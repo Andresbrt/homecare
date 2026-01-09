@@ -240,6 +240,7 @@ npm run build
 
 Homecare cuenta con una documentación extensiva:
 
+### 📚 Documentación General
 | Documento | Descripción |
 |-----------|-------------|
 | [README](./README.md) | Este archivo - Guía general del proyecto |
@@ -247,9 +248,24 @@ Homecare cuenta con una documentación extensiva:
 | [CHANGELOG.md](./CHANGELOG.md) | Historial de cambios y versiones |
 | [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Solución de problemas comunes |
 | [LICENSE](./LICENSE) | Licencia MIT |
+
+### 🚀 Guías de Desarrollo
+| Documento | Descripción |
+|-----------|-------------|
+| [DEVELOPMENT_ROADMAP.md](./DEVELOPMENT_ROADMAP.md) | **Plan completo de desarrollo** - Funcionalidades planificadas, en desarrollo y completadas |
+| [GETTING_STARTED_DEVELOPMENT.md](./GETTING_STARTED_DEVELOPMENT.md) | **Guía para empezar a desarrollar** - Instrucciones paso a paso para implementar nuevas funcionalidades |
+| [CHAT_IMPLEMENTATION_GUIDE.md](./CHAT_IMPLEMENTATION_GUIDE.md) | **Implementación de Chat en Tiempo Real** - Guía detallada con código completo |
+
+### 🔧 Configuración y Setup
+| Documento | Descripción |
+|-----------|-------------|
 | [DATABASE_SETUP.md](./homecare/DATABASE_SETUP.md) | Configuración de bases de datos |
 | [AWS_RDS_SETUP.md](./homecare/AWS_RDS_SETUP.md) | Setup de AWS RDS |
 | [UNIFIED_START_GUIDE.md](./homecare/UNIFIED_START_GUIDE.md) | Guía de inicio unificada |
+
+### 📖 Guías de Uso
+| Documento | Descripción |
+|-----------|-------------|
 | [USAGE_EXAMPLES.md](./homecare/USAGE_EXAMPLES.md) | Ejemplos de uso de la API |
 | [TESTING_GUIDE.md](./homecare/TESTING_GUIDE.md) | Guía de testing |
 | [ROLE_MANAGEMENT.md](./homecare/ROLE_MANAGEMENT.md) | Gestión de roles y permisos |
