@@ -13,6 +13,7 @@ import java.util.logging.Logger;
  * Proveedor de utilidades JWT
  */
 @Component
+@SuppressWarnings("deprecation")
 public class JwtTokenProvider {
 
     private static final Logger log = Logger.getLogger(JwtTokenProvider.class.getName());

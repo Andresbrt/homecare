@@ -8,7 +8,6 @@ import com.cleanhome.backend.entity.User;
 import com.cleanhome.backend.repository.ChatMessageRepository;
 import com.cleanhome.backend.repository.ChatRoomRepository;
 import com.cleanhome.backend.repository.UserRepository;
-import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -27,14 +26,12 @@ public class ChatService {
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
     private final UserRepository userRepository;
-    private final ModelMapper modelMapper;
 
     public ChatService(ChatRoomRepository chatRoomRepository, ChatMessageRepository chatMessageRepository,
-                       UserRepository userRepository, ModelMapper modelMapper) {
+                       UserRepository userRepository) {
         this.chatRoomRepository = chatRoomRepository;
         this.chatMessageRepository = chatMessageRepository;
         this.userRepository = userRepository;
-        this.modelMapper = modelMapper;
     }
     
     /**
@@ -187,10 +184,6 @@ public class ChatService {
     private ChatRoomDto convertRoomToDto(ChatRoom room, User currentUser) {
         ChatRoomDto dto = new ChatRoomDto();
         dto.setId(room.getId());
-        
-        User otherUser = room.getCustomer().equals(currentUser) 
-            ? room.getProvider() 
-            : room.getCustomer();
         
         dto.setCustomerId(room.getCustomer().getId());
         dto.setCustomerName(room.getCustomer().getFirstName() + " " + room.getCustomer().getLastName());

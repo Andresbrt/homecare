@@ -22,6 +22,7 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/payments/wompi")
+@SuppressWarnings("unchecked")
 public class WompiController {
 
     private final WompiService wompiService;

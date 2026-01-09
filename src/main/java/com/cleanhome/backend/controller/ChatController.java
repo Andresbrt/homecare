@@ -15,7 +15,6 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
-import java.util.logging.Logger;
 
 /**
  * Controlador para manejar operaciones de chat
@@ -25,8 +24,6 @@ import java.util.logging.Logger;
 @RestController
 @RequestMapping("/api/chat")
 public class ChatController {
-
-    private static final Logger log = Logger.getLogger(ChatController.class.getName());
     
     private final ChatService chatService;
     private final SimpMessagingTemplate messagingTemplate;
@@ -51,8 +48,7 @@ public class ChatController {
     public ResponseEntity<ApiResponse<List<ChatRoomDto>>> getUserConversations(
             Principal principal) {
         try {
-            Long userId = jwtTokenProvider.getUserIdFromPrincipal(principal);
-            List<ChatRoomDto> conversations = chatService.getUserConversations(userId);
+            List<ChatRoomDto> conversations = chatService.getUserConversations(jwtTokenProvider.getUserIdFromPrincipal(principal));
             
             return ResponseEntity.ok(ApiResponse.success(
                 conversations,
@@ -81,7 +77,7 @@ public class ChatController {
             @RequestParam(defaultValue = "20") int size,
             Principal principal) {
         try {
-            Long userId = jwtTokenProvider.getUserIdFromPrincipal(principal);
+            jwtTokenProvider.getUserIdFromPrincipal(principal);
             List<ChatMessageDto> messages = chatService.getMessages(roomId, page, size);
             
             return ResponseEntity.ok(ApiResponse.success(
@@ -107,7 +103,7 @@ public class ChatController {
             @RequestBody ChatRoomRequest request,
             Principal principal) {
         try {
-            Long userId = jwtTokenProvider.getUserIdFromPrincipal(principal);
+            jwtTokenProvider.getUserIdFromPrincipal(principal);
             Long customerId = request.getCustomerId();
             Long providerId = request.getProviderId();
             
@@ -201,7 +197,6 @@ public class ChatController {
             @Payload SendMessageRequest request,
             SimpMessageHeaderAccessor headerAccessor) {
         try {
-            String sessionId = headerAccessor.getSessionId();
             
             ChatMessageDto message = chatService.sendMessage(
                 request.getChatRoomId(),
@@ -263,7 +258,6 @@ public class ChatController {
     public void handleSubscribe(
             @Payload SubscribeRequest request,
             SimpMessageHeaderAccessor headerAccessor) {
-        String sessionId = headerAccessor.getSessionId();
         
         UserPresence presence = new UserPresence();
         presence.setChatRoomId(request.getChatRoomId());

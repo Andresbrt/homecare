@@ -10,6 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 @Service
+@SuppressWarnings("unchecked")
 public class ReconciliationService {
 
     private final PaymentRepository paymentRepository;
