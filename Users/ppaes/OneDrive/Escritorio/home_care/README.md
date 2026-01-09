@@ -182,21 +182,195 @@ Una vez que el backend esté ejecutándose, puedes acceder a la documentación i
 - `GET /api/config/ai` - Obtener la configuración global de AI
 - `PUT /api/config/ai` - Actualizar la configuración global de AI (solo ADMIN)
 
+## � Testing y Calidad
+
+Homecare incluye una suite completa de tests para garantizar la calidad y confiabilidad del código.
+
+### Ejecutar Tests
+
+```bash
+# Tests del Backend (Java)
+cd homecare
+mvn clean test
+
+# Tests de la Aplicación Móvil (JavaScript)
+cd mobile
+npm test
+
+# Coverage de código
+mvn clean test jacoco:report
+```
+
+### Documentación de Testing
+
+Para más detalles sobre estrategias de testing, casos de prueba y cómo ejecutar tests específicos, consulta la [**Guía de Testing**](./homecare/TESTING_GUIDE.md).
+
+## 🚀 Despliegue
+
+### Despliegue a Producción
+
+Para información completa sobre despliegue a producción, incluyendo:
+- Configuración de SSL/TLS
+- Optimización de rendimiento
+- Monitoreo y logging
+- Backups de base de datos
+- CI/CD con GitHub Actions
+
+Consulta la documentación específica de despliegue en cada componente:
+- Backend: [Backend Deployment Guide](./homecare/DEPLOYMENT_BACKEND.md) (próximamente)
+- Mobile: [Play Store Deployment](./homecare/mobile/PLAY_STORE_DEPLOYMENT.md)
+- Frontend: [Frontend Deployment Guide](./homecare/DEPLOYMENT_FRONTEND.md) (próximamente)
+
+### Configuración de Producción
+
+```bash
+# Backend
+export SPRING_PROFILES_ACTIVE=prod
+export DB_URL=jdbc:postgresql://prod-db:5432/homecare
+export JWT_SECRET=secreto_muy_largo_para_produccion
+mvn clean package -DskipTests
+java -jar target/homecare-1.0.0.jar
+
+# Frontend
+export NODE_ENV=production
+npm run build
+```
+
+## 📖 Documentación Completa
+
+Homecare cuenta con una documentación extensiva:
+
+| Documento | Descripción |
+|-----------|-------------|
+| [README](./README.md) | Este archivo - Guía general del proyecto |
+| [CONTRIBUTING.md](./CONTRIBUTING.md) | Guía para contribuidores |
+| [CHANGELOG.md](./CHANGELOG.md) | Historial de cambios y versiones |
+| [TROUBLESHOOTING.md](./TROUBLESHOOTING.md) | Solución de problemas comunes |
+| [LICENSE](./LICENSE) | Licencia MIT |
+| [DATABASE_SETUP.md](./homecare/DATABASE_SETUP.md) | Configuración de bases de datos |
+| [AWS_RDS_SETUP.md](./homecare/AWS_RDS_SETUP.md) | Setup de AWS RDS |
+| [UNIFIED_START_GUIDE.md](./homecare/UNIFIED_START_GUIDE.md) | Guía de inicio unificada |
+| [USAGE_EXAMPLES.md](./homecare/USAGE_EXAMPLES.md) | Ejemplos de uso de la API |
+| [TESTING_GUIDE.md](./homecare/TESTING_GUIDE.md) | Guía de testing |
+| [ROLE_MANAGEMENT.md](./homecare/ROLE_MANAGEMENT.md) | Gestión de roles y permisos |
+| [BRIDGE_SYSTEM_SUMMARY.md](./homecare/BRIDGE_SYSTEM_SUMMARY.md) | Resumen del sistema bridge |
+
+## 🔍 Estado del Proyecto
+
+- ✅ Backend completamente funcional
+- ✅ App Móvil (React Native/Expo) en desarrollo avanzado
+- ✅ Frontend Web responsivo
+- ✅ API REST documentada con Swagger
+- ✅ Sistema de autenticación y autorización
+- ✅ Integración de pagos (Wompi)
+- ✅ Sistema de calificaciones
+- 🔄 Sistema de chat en tiempo real (en desarrollo)
+- 🔄 Analytics avanzados (planeado)
+- 🔄 Más integraciones de pago (planeado)
+
 ## 🤝 Contribuir
 
-Las contribuciones son bienvenidas. Por favor, sigue estos pasos:
-1. Haz un Fork del proyecto.
-2. Crea una rama para tu nueva funcionalidad (`git checkout -b feature/nueva-funcionalidad`).
-3. Haz commit de tus cambios (`git commit -m 'Agrega nueva funcionalidad'`).
-4. Haz push a la rama (`git push origin feature/nueva-funcionalidad`).
-5. Abre un Pull Request.
+Las contribuciones son bienvenidas y apreciadas. Para contribuir a Homecare:
+
+1. **Lee la [Guía de Contribución](./CONTRIBUTING.md)** - Contiene información detallada sobre cómo contribuir
+2. **Haz un Fork** del proyecto
+3. **Crea una rama** para tu funcionalidad (`git checkout -b feature/mi-funcionalidad`)
+4. **Haz commits** descriptivos con mensajes claros
+5. **Haz push** de tu rama (`git push origin feature/mi-funcionalidad`)
+6. **Abre un Pull Request** y describe tus cambios
+
+### Reportar Bugs
+
+Si encuentras un bug, por favor:
+1. Abre un issue con título descriptivo
+2. Incluye pasos para reproducir
+3. Proporciona información del entorno
+4. Adjunta logs relevantes
+
+### Sugerir Mejoras
+
+Las sugerencias de mejoras son bienvenidas:
+1. Abre un issue con el label `enhancement`
+2. Describe el caso de uso y beneficio
+3. Proporciona ejemplos o mockups si es posible
+
+## 🎓 Curva de Aprendizaje
+
+Para nuevos colaboradores:
+1. Lee el [README](./README.md)
+2. Revisa la [Guía de Inicio Unificada](./homecare/UNIFIED_START_GUIDE.md)
+3. Explora la [Documentación de API](http://localhost:8080/swagger-ui.html) (requiere que el backend esté corriendo)
+4. Consulta la [Guía de Solución de Problemas](./TROUBLESHOOTING.md) si encuentras issues
+
+## 📊 Arquitectura
+
+Homecare sigue una arquitectura de tres capas:
+
+```
+┌─────────────────────────────────────────────┐
+│          Frontend (Web + Mobile)            │
+│     React / React Native + Expo             │
+└─────────────────┬───────────────────────────┘
+                  │ HTTP/REST
+┌─────────────────▼───────────────────────────┐
+│          API REST (Spring Boot)             │
+│    Swagger, JWT, Spring Security            │
+└─────────────────┬───────────────────────────┘
+                  │ JDBC/JPA
+┌─────────────────▼───────────────────────────┐
+│      Base de Datos (PostgreSQL)             │
+│  Tablas normalizadas, índices optimizados   │
+└─────────────────────────────────────────────┘
+```
+
+## 🔐 Seguridad
+
+Homecare implementa mejores prácticas de seguridad:
+
+- ✅ Autenticación JWT
+- ✅ Encriptación de contraseñas (bcrypt)
+- ✅ CORS configurado
+- ✅ Validación de entrada
+- ✅ SQL Injection prevention (ORM)
+- ✅ Rate limiting (en configuración)
+- ✅ HTTPS en producción
+
+**Importante**: Si encuentras una vulnerabilidad de seguridad, por favor **no la hagas pública**. Envía un email a los mantenedores del proyecto.
+
+## 📞 Soporte y Contacto
+
+- **GitHub**: [Homecare Repository](https://github.com/Andresbrt/homecare)
+- **Issues**: Para reportes de bugs y solicitudes de funcionalidades
+- **Pull Requests**: Para contribuciones al código
+- **Documentación**: Consulta la [Guía de Solución de Problemas](./TROUBLESHOOTING.md)
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT.
+Este proyecto está bajo la [**Licencia MIT**](./LICENSE). Eres libre de usar, modificar y distribuir este software.
 
-## 📞 Contacto
-- **GitHub**: [Homecare Repository](https://github.com/Andresbrt/homecare)
+```
+Copyright (c) 2026 Homecare Contributors
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software...
+```
+
+## 🌟 Agradecimientos
+
+Gracias a:
+- [Spring Boot](https://spring.io/projects/spring-boot)
+- [React Native](https://reactnative.dev/)
+- [Expo](https://expo.dev/)
+- [PostgreSQL](https://www.postgresql.org/)
+- Todos los contribuidores y la comunidad
+
 ---
 
+**Última actualización**: 8 de enero de 2026
+
 ¡Gracias por usar Homecare! 🏠✨
+
+Si este proyecto te fue útil, considera darle una ⭐ en GitHub para apoyar el desarrollo.
