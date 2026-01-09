@@ -1,9 +1,6 @@
 package com.cleanhome.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 
 /**
@@ -15,9 +12,6 @@ import java.time.LocalDateTime;
     @Index(name = "idx_sender", columnList = "sender_id"),
     @Index(name = "idx_created_at", columnList = "created_at")
 })
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ChatMessage extends BaseEntity {
     
     @Id
@@ -40,14 +34,74 @@ public class ChatMessage extends BaseEntity {
     
     @Column(name = "read_at")
     private LocalDateTime readAt;
-    
-    /**
-     * Constructor simplificado
-     */
+
+    // Constructors
+    public ChatMessage() {
+    }
+
     public ChatMessage(ChatRoom chatRoom, User sender, String messageText) {
         this.chatRoom = chatRoom;
         this.sender = sender;
         this.messageText = messageText;
         this.isRead = false;
+    }
+
+    public ChatMessage(Long id, ChatRoom chatRoom, User sender, String messageText, Boolean isRead, LocalDateTime readAt) {
+        this.id = id;
+        this.chatRoom = chatRoom;
+        this.sender = sender;
+        this.messageText = messageText;
+        this.isRead = isRead;
+        this.readAt = readAt;
+    }
+
+    // Getters
+    public Long getId() {
+        return id;
+    }
+
+    public ChatRoom getChatRoom() {
+        return chatRoom;
+    }
+
+    public User getSender() {
+        return sender;
+    }
+
+    public String getMessageText() {
+        return messageText;
+    }
+
+    public Boolean getIsRead() {
+        return isRead;
+    }
+
+    public LocalDateTime getReadAt() {
+        return readAt;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setChatRoom(ChatRoom chatRoom) {
+        this.chatRoom = chatRoom;
+    }
+
+    public void setSender(User sender) {
+        this.sender = sender;
+    }
+
+    public void setMessageText(String messageText) {
+        this.messageText = messageText;
+    }
+
+    public void setIsRead(Boolean isRead) {
+        this.isRead = isRead;
+    }
+
+    public void setReadAt(LocalDateTime readAt) {
+        this.readAt = readAt;
     }
 }

@@ -3,18 +3,19 @@ package com.cleanhome.backend.security;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureException;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 import java.security.Principal;
+import java.util.logging.Logger;
 
 /**
  * Proveedor de utilidades JWT
  */
 @Component
-@Slf4j
 public class JwtTokenProvider {
+
+    private static final Logger log = Logger.getLogger(JwtTokenProvider.class.getName());
 
     @Value("${jwt.secret:homecare-secret-key-2024}")
     private String jwtSecret;
@@ -50,14 +51,14 @@ public class JwtTokenProvider {
             try {
                 return Long.parseLong(subject);
             } catch (NumberFormatException e) {
-                log.warn("Subject no es numérico: {}", subject);
+                log.warning("Subject no es numérico: " + subject);
                 return null;
             }
         } catch (SignatureException e) {
-            log.error("Firma JWT inválida", e);
+            log.severe("Firma JWT inválida: " + e.getMessage());
             throw new RuntimeException("Token JWT inválido");
         } catch (Exception e) {
-            log.error("Error extrayendo userId del principal", e);
+            log.severe("Error extrayendo userId del principal: " + e.getMessage());
             throw new RuntimeException("Error procesando token: " + e.getMessage());
         }
     }
@@ -84,7 +85,7 @@ public class JwtTokenProvider {
 
             return claims.getSubject();
         } catch (Exception e) {
-            log.error("Error extrayendo email del principal", e);
+            log.severe("Error extrayendo email del principal: " + e.getMessage());
             throw new RuntimeException("Error procesando token");
         }
     }
@@ -106,7 +107,7 @@ public class JwtTokenProvider {
 
             return claims.get(claimName);
         } catch (Exception e) {
-            log.error("Error extrayendo claim {}", claimName, e);
+            log.severe("Error extrayendo claim " + claimName + ": " + e.getMessage());
             return null;
         }
     }

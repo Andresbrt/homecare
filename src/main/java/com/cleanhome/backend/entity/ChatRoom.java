@@ -1,9 +1,6 @@
 package com.cleanhome.backend.entity;
 
 import jakarta.persistence.*;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import lombok.AllArgsConstructor;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -16,9 +13,6 @@ import java.util.List;
     @Index(name = "idx_customer", columnList = "customer_id"),
     @Index(name = "idx_provider", columnList = "provider_id")
 })
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class ChatRoom extends BaseEntity {
     
     @Id
@@ -44,13 +38,83 @@ public class ChatRoom extends BaseEntity {
     
     @OneToMany(mappedBy = "chatRoom", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<ChatMessage> messages;
-    
-    /**
-     * Constructor simplificado
-     */
+
+    // Constructors
+    public ChatRoom() {
+    }
+
     public ChatRoom(User customer, User provider) {
         this.customer = customer;
         this.provider = provider;
         this.isActive = true;
+    }
+
+    public ChatRoom(Long id, User customer, User provider, String lastMessage, 
+                    LocalDateTime lastMessageTime, Boolean isActive, List<ChatMessage> messages) {
+        this.id = id;
+        this.customer = customer;
+        this.provider = provider;
+        this.lastMessage = lastMessage;
+        this.lastMessageTime = lastMessageTime;
+        this.isActive = isActive;
+        this.messages = messages;
+    }
+
+    // Getters
+    public Long getId() {
+        return id;
+    }
+
+    public User getCustomer() {
+        return customer;
+    }
+
+    public User getProvider() {
+        return provider;
+    }
+
+    public String getLastMessage() {
+        return lastMessage;
+    }
+
+    public LocalDateTime getLastMessageTime() {
+        return lastMessageTime;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+
+    public List<ChatMessage> getMessages() {
+        return messages;
+    }
+
+    // Setters
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setCustomer(User customer) {
+        this.customer = customer;
+    }
+
+    public void setProvider(User provider) {
+        this.provider = provider;
+    }
+
+    public void setLastMessage(String lastMessage) {
+        this.lastMessage = lastMessage;
+    }
+
+    public void setLastMessageTime(LocalDateTime lastMessageTime) {
+        this.lastMessageTime = lastMessageTime;
+    }
+
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
+    }
+
+    public void setMessages(List<ChatMessage> messages) {
+        this.messages = messages;
     }
 }

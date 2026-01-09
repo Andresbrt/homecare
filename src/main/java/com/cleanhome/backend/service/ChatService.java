@@ -8,8 +8,6 @@ import com.cleanhome.backend.entity.User;
 import com.cleanhome.backend.repository.ChatMessageRepository;
 import com.cleanhome.backend.repository.ChatRoomRepository;
 import com.cleanhome.backend.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -23,15 +21,21 @@ import java.util.stream.Collectors;
  * Service para la lógica de negocio del chat
  */
 @Service
-@RequiredArgsConstructor
-@Slf4j
 @Transactional
 public class ChatService {
-    
+
     private final ChatRoomRepository chatRoomRepository;
     private final ChatMessageRepository chatMessageRepository;
     private final UserRepository userRepository;
     private final ModelMapper modelMapper;
+
+    public ChatService(ChatRoomRepository chatRoomRepository, ChatMessageRepository chatMessageRepository,
+                       UserRepository userRepository, ModelMapper modelMapper) {
+        this.chatRoomRepository = chatRoomRepository;
+        this.chatMessageRepository = chatMessageRepository;
+        this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
+    }
     
     /**
      * Obtener o crear una sala de chat entre dos usuarios
@@ -50,8 +54,6 @@ public class ChatService {
             .orElseGet(() -> {
                 ChatRoom newRoom = new ChatRoom(customer, provider);
                 ChatRoom saved = chatRoomRepository.save(newRoom);
-                log.info("Nueva sala de chat creada: {} entre usuario {} y {}", 
-                         saved.getId(), customerId, providerId);
                 return saved;
             });
     }
@@ -84,7 +86,7 @@ public class ChatService {
         chatRoom.setLastMessageTime(LocalDateTime.now());
         chatRoomRepository.save(chatRoom);
         
-        log.info("Mensaje enviado en sala {}: {} bytes", chatRoomId, messageText.length());
+        // Mensaje enviado
         
         return convertMessageToDto(message);
     }
@@ -140,8 +142,7 @@ public class ChatService {
         
         if (!unreadMessages.isEmpty()) {
             chatMessageRepository.saveAll(unreadMessages);
-            log.info("Marcados {} mensajes como leídos en sala {}", 
-                     unreadMessages.size(), chatRoomId);
+            // Marcados mensajes como leídos
         }
     }
     
@@ -171,8 +172,8 @@ public class ChatService {
         dto.setId(message.getId());
         dto.setChatRoomId(message.getChatRoom().getId());
         dto.setSenderId(message.getSender().getId());
-        dto.setSenderName(message.getSender().getName());
-        dto.setSenderAvatar(message.getSender().getProfilePicture());
+        dto.setSenderName(message.getSender().getFirstName() + " " + message.getSender().getLastName());
+        dto.setSenderAvatar(message.getSender().getProfileImageUrl());
         dto.setMessageText(message.getMessageText());
         dto.setSentAt(message.getCreatedAt());
         dto.setTimestamp(message.getCreatedAt());
@@ -192,11 +193,11 @@ public class ChatService {
             : room.getCustomer();
         
         dto.setCustomerId(room.getCustomer().getId());
-        dto.setCustomerName(room.getCustomer().getName());
-        dto.setCustomerAvatar(room.getCustomer().getProfilePicture());
+        dto.setCustomerName(room.getCustomer().getFirstName() + " " + room.getCustomer().getLastName());
+        dto.setCustomerAvatar(room.getCustomer().getProfileImageUrl());
         dto.setProviderId(room.getProvider().getId());
-        dto.setProviderName(room.getProvider().getName());
-        dto.setProviderAvatar(room.getProvider().getProfilePicture());
+        dto.setProviderName(room.getProvider().getFirstName() + " " + room.getProvider().getLastName());
+        dto.setProviderAvatar(room.getProvider().getProfileImageUrl());
         dto.setLastMessage(room.getLastMessage());
         dto.setLastMessageTime(room.getLastMessageTime());
         

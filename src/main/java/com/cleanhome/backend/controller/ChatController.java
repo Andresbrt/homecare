@@ -5,8 +5,6 @@ import com.cleanhome.backend.dto.ChatMessageDto;
 import com.cleanhome.backend.dto.ChatRoomDto;
 import com.cleanhome.backend.service.ChatService;
 import com.cleanhome.backend.security.JwtTokenProvider;
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -17,6 +15,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.util.List;
+import java.util.logging.Logger;
 
 /**
  * Controlador para manejar operaciones de chat
@@ -25,13 +24,20 @@ import java.util.List;
  */
 @RestController
 @RequestMapping("/api/chat")
-@RequiredArgsConstructor
-@Slf4j
 public class ChatController {
+
+    private static final Logger log = Logger.getLogger(ChatController.class.getName());
     
     private final ChatService chatService;
     private final SimpMessagingTemplate messagingTemplate;
     private final JwtTokenProvider jwtTokenProvider;
+
+    public ChatController(ChatService chatService, SimpMessagingTemplate messagingTemplate, 
+                         JwtTokenProvider jwtTokenProvider) {
+        this.chatService = chatService;
+        this.messagingTemplate = messagingTemplate;
+        this.jwtTokenProvider = jwtTokenProvider;
+    }
     
     // ==================== ENDPOINTS REST ====================
     
@@ -53,7 +59,6 @@ public class ChatController {
                 "Conversaciones obtenidas correctamente"
             ));
         } catch (Exception e) {
-            log.error("Error obteniendo conversaciones", e);
             return ResponseEntity.badRequest().body(
                 ApiResponse.error("Error obteniendo conversaciones: " + e.getMessage())
             );
@@ -79,15 +84,11 @@ public class ChatController {
             Long userId = jwtTokenProvider.getUserIdFromPrincipal(principal);
             List<ChatMessageDto> messages = chatService.getMessages(roomId, page, size);
             
-            log.info("Recuperados {} mensajes de sala {} para usuario {}", 
-                     messages.size(), roomId, userId);
-            
             return ResponseEntity.ok(ApiResponse.success(
                 messages,
                 "Mensajes obtenidos correctamente"
             ));
         } catch (Exception e) {
-            log.error("Error obteniendo mensajes de sala {}", roomId, e);
             return ResponseEntity.badRequest().body(
                 ApiResponse.error("Error obteniendo mensajes: " + e.getMessage())
             );
@@ -123,7 +124,6 @@ public class ChatController {
                 "Sala de chat obtenida/creada correctamente"
             ));
         } catch (Exception e) {
-            log.error("Error creando/obteniendo sala de chat", e);
             return ResponseEntity.badRequest().body(
                 ApiResponse.error("Error: " + e.getMessage())
             );
@@ -149,7 +149,6 @@ public class ChatController {
                 "Mensajes marcados como leídos"
             ));
         } catch (Exception e) {
-            log.error("Error marcando mensajes como leídos", e);
             return ResponseEntity.badRequest().body(
                 ApiResponse.error("Error: " + e.getMessage())
             );
@@ -173,7 +172,6 @@ public class ChatController {
                 "Conteo de no leídos obtenido"
             ));
         } catch (Exception e) {
-            log.error("Error obteniendo conteo de no leídos", e);
             return ResponseEntity.badRequest().body(
                 ApiResponse.error("Error: " + e.getMessage())
             );
@@ -204,7 +202,6 @@ public class ChatController {
             SimpMessageHeaderAccessor headerAccessor) {
         try {
             String sessionId = headerAccessor.getSessionId();
-            log.info("Mensaje recibido en WebSocket [session: {}]", sessionId);
             
             ChatMessageDto message = chatService.sendMessage(
                 request.getChatRoomId(),
@@ -221,7 +218,6 @@ public class ChatController {
             
             return message;
         } catch (Exception e) {
-            log.error("Error en handleChatMessage", e);
             return null;
         }
     }
@@ -235,16 +231,14 @@ public class ChatController {
     public TypingNotification handleTypingNotification(
             @Payload TypingNotification notification,
             SimpMessageHeaderAccessor headerAccessor) {
-        log.info("Usuario {} escribiendo en sala {}", 
-                 notification.getUserId(), notification.getChatRoomId());
         
-        return TypingNotification.builder()
-            .chatRoomId(notification.getChatRoomId())
-            .userId(notification.getUserId())
-            .userName(notification.getUserName())
-            .isTyping(notification.isTyping())
-            .timestamp(System.currentTimeMillis())
-            .build();
+        TypingNotification response = new TypingNotification();
+        response.setChatRoomId(notification.getChatRoomId());
+        response.setUserId(notification.getUserId());
+        response.setUserName(notification.getUserName());
+        response.setTyping(notification.isTyping());
+        response.setTimestamp(System.currentTimeMillis());
+        return response;
     }
     
     /**
@@ -254,8 +248,6 @@ public class ChatController {
     @MessageMapping("/chat/read")
     public void handleReadNotification(
             @Payload ReadNotification notification) {
-        log.info("Mensaje {} marcado como leído por usuario {}", 
-                 notification.getMessageId(), notification.getUserId());
         
         messagingTemplate.convertAndSend(
             "/topic/chat/room/" + notification.getChatRoomId(),
@@ -272,18 +264,17 @@ public class ChatController {
             @Payload SubscribeRequest request,
             SimpMessageHeaderAccessor headerAccessor) {
         String sessionId = headerAccessor.getSessionId();
-        log.info("Usuario {} subscribido a sala {} [session: {}]", 
-                 request.getUserId(), request.getChatRoomId(), sessionId);
+        
+        UserPresence presence = new UserPresence();
+        presence.setChatRoomId(request.getChatRoomId());
+        presence.setUserId(request.getUserId());
+        presence.setUserName(request.getUserName());
+        presence.setOnline(true);
+        presence.setTimestamp(System.currentTimeMillis());
         
         messagingTemplate.convertAndSend(
             "/topic/chat/room/" + request.getChatRoomId(),
-            UserPresence.builder()
-                .chatRoomId(request.getChatRoomId())
-                .userId(request.getUserId())
-                .userName(request.getUserName())
-                .isOnline(true)
-                .timestamp(System.currentTimeMillis())
-                .build()
+            presence
         );
     }
     

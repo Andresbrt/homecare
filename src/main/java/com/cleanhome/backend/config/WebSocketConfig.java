@@ -1,19 +1,20 @@
 package com.cleanhome.backend.config;
 
-import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.simp.config.MessageBrokerRegistry;
 import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBroker;
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
+import java.util.logging.Logger;
 
 /**
  * Configuración de WebSocket para comunicación en tiempo real
  */
 @Configuration
 @EnableWebSocketMessageBroker
-@Slf4j
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
+
+    private static final Logger log = Logger.getLogger(WebSocketConfig.class.getName());
     
     /**
      * Configurar el broker de mensajes
@@ -45,26 +46,21 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         log.info("Registrando STOMP endpoints");
         
+        String[] allowedOrigins = new String[]{
+            "http://localhost:3000",           // React Web
+            "http://localhost:8083",           // Expo Mobile
+            "http://localhost:19000",          // Expo DevApp
+            "http://localhost:19001",          // Expo DevApp (alt)
+            "http://192.168.1.100:8083",       // Red local
+            "exp://127.0.0.1:19000"            // Expo local
+        };
+        
         registry.addEndpoint("/ws")
-            .setAllowedOrigins(
-                "http://localhost:3000",           // React Web
-                "http://localhost:8083",           // Expo Mobile
-                "http://localhost:19000",          // Expo DevApp
-                "http://localhost:19001",          // Expo DevApp (alt)
-                "http://192.168.1.100:8083",       // Red local
-                "exp://127.0.0.1:19000"            // Expo local
-            )
+            .setAllowedOrigins(allowedOrigins)
             .withSockJS();
         
         registry.addEndpoint("/ws")
-            .setAllowedOrigins(
-                "http://localhost:3000",
-                "http://localhost:8083",
-                "http://localhost:19000",
-                "http://localhost:19001",
-                "http://192.168.1.100:8083",
-                "exp://127.0.0.1:19000"
-            );
+            .setAllowedOrigins(allowedOrigins);
         
         log.info("STOMP endpoints registrados en /ws");
     }
