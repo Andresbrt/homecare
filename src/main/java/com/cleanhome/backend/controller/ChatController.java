@@ -3,7 +3,6 @@ package com.cleanhome.backend.controller;
 import com.cleanhome.backend.dto.ApiResponse;
 import com.cleanhome.backend.dto.ChatMessageDto;
 import com.cleanhome.backend.dto.ChatRoomDto;
-import com.cleanhome.backend.entity.User;
 import com.cleanhome.backend.service.ChatService;
 import com.cleanhome.backend.security.JwtTokenProvider;
 import lombok.RequiredArgsConstructor;
@@ -16,8 +15,6 @@ import org.springframework.messaging.simp.SimpMessageHeaderAccessor;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import java.security.Principal;
 import java.util.List;
 
@@ -299,54 +296,122 @@ public class ChatController {
     
     // ==================== DTOs ====================
     
-    @lombok.Data
     public static class ChatRoomRequest {
         private Long customerId;
         private Long providerId;
+        
+        public Long getCustomerId() { return customerId; }
+        public void setCustomerId(Long customerId) { this.customerId = customerId; }
+        public Long getProviderId() { return providerId; }
+        public void setProviderId(Long providerId) { this.providerId = providerId; }
     }
     
-    @lombok.Data
-    @lombok.Builder
     public static class SendMessageRequest {
         private Long chatRoomId;
         private Long senderId;
         private String messageText;
+        
+        public Long getChatRoomId() { return chatRoomId; }
+        public void setChatRoomId(Long chatRoomId) { this.chatRoomId = chatRoomId; }
+        public Long getSenderId() { return senderId; }
+        public void setSenderId(Long senderId) { this.senderId = senderId; }
+        public String getMessageText() { return messageText; }
+        public void setMessageText(String messageText) { this.messageText = messageText; }
     }
     
-    @lombok.Data
-    @lombok.Builder
     public static class TypingNotification {
         private Long chatRoomId;
         private Long userId;
         private String userName;
         private boolean isTyping;
         private long timestamp;
+        
+        public TypingNotification() {}
+        
+        public TypingNotification(Long chatRoomId, Long userId, String userName, boolean isTyping, long timestamp) {
+            this.chatRoomId = chatRoomId;
+            this.userId = userId;
+            this.userName = userName;
+            this.isTyping = isTyping;
+            this.timestamp = timestamp;
+        }
+        
+        public Long getChatRoomId() { return chatRoomId; }
+        public void setChatRoomId(Long chatRoomId) { this.chatRoomId = chatRoomId; }
+        public Long getUserId() { return userId; }
+        public void setUserId(Long userId) { this.userId = userId; }
+        public String getUserName() { return userName; }
+        public void setUserName(String userName) { this.userName = userName; }
+        public boolean isTyping() { return isTyping; }
+        public void setTyping(boolean typing) { isTyping = typing; }
+        public long getTimestamp() { return timestamp; }
+        public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
     }
     
-    @lombok.Data
-    @lombok.Builder
     public static class ReadNotification {
         private Long chatRoomId;
         private Long messageId;
         private Long userId;
         private long timestamp;
+        
+        public ReadNotification() {}
+        
+        public ReadNotification(Long chatRoomId, Long messageId, Long userId, long timestamp) {
+            this.chatRoomId = chatRoomId;
+            this.messageId = messageId;
+            this.userId = userId;
+            this.timestamp = timestamp;
+        }
+        
+        public Long getChatRoomId() { return chatRoomId; }
+        public void setChatRoomId(Long chatRoomId) { this.chatRoomId = chatRoomId; }
+        public Long getMessageId() { return messageId; }
+        public void setMessageId(Long messageId) { this.messageId = messageId; }
+        public Long getUserId() { return userId; }
+        public void setUserId(Long userId) { this.userId = userId; }
+        public long getTimestamp() { return timestamp; }
+        public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
     }
     
-    @lombok.Data
-    @lombok.Builder
     public static class SubscribeRequest {
         private Long chatRoomId;
         private Long userId;
         private String userName;
+        
+        public Long getChatRoomId() { return chatRoomId; }
+        public void setChatRoomId(Long chatRoomId) { this.chatRoomId = chatRoomId; }
+        public Long getUserId() { return userId; }
+        public void setUserId(Long userId) { this.userId = userId; }
+        public String getUserName() { return userName; }
+        public void setUserName(String userName) { this.userName = userName; }
     }
     
-    @lombok.Data
-    @lombok.Builder
     public static class UserPresence {
         private Long chatRoomId;
         private Long userId;
         private String userName;
         private boolean isOnline;
         private long timestamp;
+        
+        public UserPresence() {}
+        
+        public UserPresence(Long chatRoomId, Long userId, String userName, boolean isOnline, long timestamp) {
+            this.chatRoomId = chatRoomId;
+            this.userId = userId;
+            this.userName = userName;
+            this.isOnline = isOnline;
+            this.timestamp = timestamp;
+        }
+        
+        public Long getChatRoomId() { return chatRoomId; }
+        public void setChatRoomId(Long chatRoomId) { this.chatRoomId = chatRoomId; }
+        public Long getUserId() { return userId; }
+        public void setUserId(Long userId) { this.userId = userId; }
+        public String getUserName() { return userName; }
+        public void setUserName(String userName) { this.userName = userName; }
+        public boolean isOnline() { return isOnline; }
+        public void setOnline(boolean online) { isOnline = online; }
+        public long getTimestamp() { return timestamp; }
+        public void setTimestamp(long timestamp) { this.timestamp = timestamp; }
     }
 }
