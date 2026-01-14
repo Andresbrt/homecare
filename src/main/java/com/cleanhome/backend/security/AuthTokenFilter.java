@@ -35,8 +35,9 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
             // Atajo de desarrollo: token rápido para demos locales
             if (headerAuth != null && headerAuth.equals("Bearer quick-access-token")) {
+                // Use the seeded dev user so downstream lookups (bookings, payments) succeed
                 UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
-                        "acceso@cleanhome.app",
+                        "test@viclean.com",
                         null,
                         java.util.List.of(new SimpleGrantedAuthority("ROLE_CUSTOMER"))
                 );

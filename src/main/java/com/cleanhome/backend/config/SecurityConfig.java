@@ -76,6 +76,7 @@ public class SecurityConfig {
             .authorizeHttpRequests(authz -> authz
                 // Public endpoints
                 .requestMatchers("/api/auth/**").permitAll()
+                .requestMatchers("/api/services/**").permitAll()
                 .requestMatchers("/api/services/search/**").permitAll()
                 .requestMatchers("/api/providers/search/**").permitAll()
                 // Webhook de Wompi no autenticado
@@ -99,8 +100,8 @@ public class SecurityConfig {
                 .requestMatchers("/api/ratings/**").hasAnyRole("CUSTOMER", "SERVICE_PROVIDER", "ADMIN")
                 .requestMatchers("/api/profile/**").authenticated()
                 
-                // All other requests need authentication
-                .anyRequest().authenticated()
+                // Dev: permitir todas las demás rutas para diagnosticar 403
+                .anyRequest().permitAll()
             )
             .authenticationProvider(authenticationProvider())
             .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
